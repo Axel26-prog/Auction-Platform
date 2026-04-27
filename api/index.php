@@ -32,7 +32,7 @@ require_once "models/PujaModel.php";
 require_once "models/RelojModel.php";
 require_once "models/RelojVendedorModel.php";
 require_once "models/RolModel.php";
-require_once "models/subastaModel.php";
+require_once "models/SubastaModel.php";
 require_once "models/UsuarioModel.php";
 require_once "models/CategoriaModel.php";
 /***--- Agregar todos los controladores*/
@@ -48,7 +48,7 @@ require_once "controllers/PujaController.php";
 require_once "controllers/RelojController.php";
 require_once "controllers/RelojVendedorController.php";
 require_once "controllers/RolController.php";
-require_once "controllers/subastaController.php";
+require_once "controllers/SubastaController.php";
 require_once "controllers/UsuarioController.php";
 require_once "controllers/CategoriaController.php";
 
