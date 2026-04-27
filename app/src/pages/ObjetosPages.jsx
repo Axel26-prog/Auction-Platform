@@ -95,7 +95,7 @@ export default function ObjetosPage() {
               {/* IMAGEN */}
               <div className="h-56 bg-white flex items-center justify-center overflow-hidden p-4">
                 <img
-                  src={`http://localhost:81/appsubasta/api/uploads/${obj.imagen}`}
+                  src={`${import.meta.env.VITE_API_URL}/uploads/${obj.imagen}`}
                   alt={obj.modelo}
                   className="max-h-full max-w-full object-contain"
                 />
@@ -159,7 +159,7 @@ export default function ObjetosPage() {
 
             <div className="h-80 bg-white flex items-center justify-center overflow-hidden p-4 mb-6 rounded">
               <img
-                src={`http://localhost:81/appsubasta/api/uploads/${detalle.imagen}`}
+                src={`${import.meta.env.VITE_API_URL}/uploads/${detalle.imagen}`}
                 alt={detalle.modelo}
                 className="max-h-full max-w-full object-contain"
               />
