@@ -69,7 +69,14 @@ npm run dev
 
 ## Screenshots
 
-> Coming soon
+### Register & Login
+![Login and Register](screenshots/LoginRegister.gif)
+
+### Create Auction
+![Create Auction](screenshots/Create.gif)
+
+### Live Bidding
+![Live Bidding](screenshots/Bid.gif)
 
 ---
 
