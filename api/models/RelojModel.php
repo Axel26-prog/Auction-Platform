@@ -12,35 +12,35 @@ class RelojModel
    public function all()
 {
     $vSql = "SELECT 
-                r.*,
-                er.nombre AS estado,
-                m.nombre AS marca,
-                c.nombre AS condicion,
-                erv.nombre AS estado_vendedor,
-                GROUP_CONCAT(cat.nombre SEPARATOR ', ') AS categorias,
-                IF(sa.id_reloj IS NOT NULL, 1, 0) AS tiene_subasta_activa
-            FROM reloj r
-            INNER JOIN estado_reloj er
-                ON r.id_estado = er.id_estado
-            INNER JOIN marca m 
-                ON r.id_marca = m.id_marca
-            INNER JOIN condicion c 
-                ON r.id_condicion = c.id_condicion
-            LEFT JOIN reloj_vendedor rv
-                ON r.id_reloj = rv.id_reloj
-            LEFT JOIN estado_reloj_vendedor erv
-                ON rv.id_estado_reloj_vendedor = erv.id_estado_reloj_vendedor
-            LEFT JOIN reloj_categoria rc
-                ON r.id_reloj = rc.id_reloj
-            LEFT JOIN categoria cat
-                ON rc.id_categoria = cat.id_categoria
-            LEFT JOIN (
-                SELECT DISTINCT rv2.id_reloj
-                FROM reloj_vendedor rv2
-                INNER JOIN subasta s ON s.id_reloj_vendedor = rv2.id_reloj_vendedor
-                WHERE s.id_estado_subasta = 1
-            ) sa ON sa.id_reloj = r.id_reloj
-            GROUP BY r.id_reloj;";
+    r.*,
+    er.nombre AS estado,
+    m.nombre AS marca,
+    c.nombre AS condicion,
+    GROUP_CONCAT(DISTINCT erv.nombre) AS estado_vendedor,
+    GROUP_CONCAT(DISTINCT cat.nombre SEPARATOR ', ') AS categorias,
+    IF(sa.id_reloj IS NOT NULL, 1, 0) AS tiene_subasta_activa
+FROM reloj r
+INNER JOIN estado_reloj er
+    ON r.id_estado = er.id_estado
+INNER JOIN marca m 
+    ON r.id_marca = m.id_marca
+INNER JOIN condicion c 
+    ON r.id_condicion = c.id_condicion
+LEFT JOIN reloj_vendedor rv
+    ON r.id_reloj = rv.id_reloj
+LEFT JOIN estado_reloj_vendedor erv
+    ON rv.id_estado_reloj_vendedor = erv.id_estado_reloj_vendedor
+LEFT JOIN reloj_categoria rc
+    ON r.id_reloj = rc.id_reloj
+LEFT JOIN categoria cat
+    ON rc.id_categoria = cat.id_categoria
+LEFT JOIN (
+    SELECT DISTINCT rv2.id_reloj
+    FROM reloj_vendedor rv2
+    INNER JOIN subasta s ON s.id_reloj_vendedor = rv2.id_reloj_vendedor
+    WHERE s.id_estado_subasta = 1
+) sa ON sa.id_reloj = r.id_reloj
+GROUP BY r.id_reloj;";
 
     return $this->enlace->ExecuteSQL($vSql);
 }
