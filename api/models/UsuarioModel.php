@@ -9,18 +9,19 @@ class UsuarioModel
     }
 
     private function escape($value)
-    {
-        $conn = new mysqli(
-            Config::get('DB_HOST'),
-            Config::get('DB_USERNAME'),
-            Config::get('DB_PASSWORD'),
-            Config::get('DB_DBNAME')
-        );
-        $escaped = mysqli_real_escape_string($conn, $value);
-        $conn->close();
-        return $escaped;
-    }
-
+{
+    $host = Config::get('DB_HOST');
+    $dbname = Config::get('DB_DBNAME');
+    $user = Config::get('DB_USERNAME');
+    $pass = Config::get('DB_PASSWORD');
+    $port = Config::get('DB_PORT') ?: 3306;
+    $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8";
+    $pdo = new PDO($dsn, $user, $pass);
+    $quoted = $pdo->quote($value);
+    $pdo = null;
+    // quote() agrega comillas simples, las quitamos para mantener compatibilidad
+    return trim($quoted, "'");
+}
     public function all()
     {
         $vSql = "SELECT u.id_usuario,
